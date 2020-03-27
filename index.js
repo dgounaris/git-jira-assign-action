@@ -25,10 +25,8 @@ async function run() {
       const issues = await new GetAllIssuesAction(inputs.owner, repo, inputs.token).execute();
       issues.data.forEach(async (issue) => {
           const issueNumber = issue.number;
-          const assignees = issue.assignees.forEach(assignee => {
-              assignee.login
-          });
-          console.log(`Operating for issue: ${issueNumber}`);
+          const assignees = issue.assignees.length != 0 ? issue.assignees.map(assignee => assignee.login) : [];
+          console.log(`Operating for issue: ${issueNumber} with ${assignees}`);
           await operateForIssue(inputs.owner, repo, issueNumber, assignees, inputs.token);
       });
     } catch (error) {
