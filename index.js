@@ -6,6 +6,7 @@ const fs = require('fs');
 const configPath = `${process.env.HOME}/jira/config.yml`;
 const JiraGetIssueAction = require('./common/net/jira/getissue/action');
 const AssignIssueAction = require('./common/net/github/assignIssue/action');
+const UnassignIssueAction = require('./common/net/github/unassignIssue/action');
 const GetAllIssuesAction = require('./common/net/github/getAllIssues/action');
 const GetFirstIssueCommentAction = require('./common/net/github/getFirstIssueComment/action');
 const assigneeMapping = require('./common/assigneeMapping');
