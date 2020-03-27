@@ -24,8 +24,11 @@ async function run() {
       const issues = await new GetAllIssuesAction(inputs.owner, repo, inputs.token).execute();
       issues.data.forEach(async (issue) => {
           const issueNumber = issue.number;
+          const assignees = issue.assignees.forEach(assignee => {
+              assignee.login
+          });
           console.log(`Operating for issue: ${issueNumber}`);
-          await operateForIssue(inputs.owner, repo, issueNumber, inputs.token);
+          await operateForIssue(inputs.owner, repo, issueNumber, assignees, inputs.token);
       });
     } catch (error) {
         console.log(error);
@@ -41,7 +44,7 @@ async function getSanitizedRepo(rawRepo) {
     return repo;
 }
 
-async function operateForIssue(owner, repo, issue, token) {
+async function operateForIssue(owner, repo, issue, existingAssignees, token) {
     const issueFirstComment = await new GetFirstIssueCommentAction(owner, repo, issue, token).execute();
     console.log('First commit message: ' + issueFirstComment);
 
@@ -56,7 +59,16 @@ async function operateForIssue(owner, repo, issue, token) {
     if (jiraIssueAssignee != '' && assigneeMapping[jiraIssueAssignee] != null) {
         const githubAssignee = assigneeMapping[jiraIssueAssignee];
         console.log(githubAssignee);
+        await new UnassignIssueAction(
+            owner, 
+            repo, 
+            issue, 
+            existingAssignees.filter(assignee => assignee != githubAssignee), 
+            token
+        ).execute();
         await new AssignIssueAction(owner, repo, issue, githubAssignee, token).execute();
+    } else {
+        await new UnassignIssueAction(owner, repo, issue, existingAssignees, token).execute();
     }
 }
 
