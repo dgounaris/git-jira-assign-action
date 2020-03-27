@@ -10,17 +10,15 @@ class UnassignIssueAction {
     }
   
     async execute() {
-        let config = {
-            headers: {
-                'Authorization': `token ${this.token}`,
+        const headers = {
+                'Authorization': `token ${this.token}`
             }
+
+        const data = {
+            'assignees': ['dgounaris']
         }
 
-        let data = {
-            'assignees': this.assignees
-        }
-
-        const response = await axios.delete(`https://api.github.com/repos/${this.owner}/${this.repo}/issues/${this.issue}/assignees`, data, config);
+        const response = await axios.delete(`https://api.github.com/repos/${this.owner}/${this.repo}/issues/${this.issue}/assignees`, {headers, data});
         //console.log('Full response:\n');
         //console.log(response)
         //console.log('\n')
