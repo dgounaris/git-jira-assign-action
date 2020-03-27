@@ -15,9 +15,9 @@ const config = YAML.parse(fs.readFileSync(configPath, 'utf8'));
 async function run() {
     try {
       const inputs = {
-        token: 'ef8f223942b161ddd4534458803e677ed315e278',
-        owner: 'dgounaris',
-        repository: 'test-jira-actions'
+        token: core.getInput('token'),
+        owner: core.getInput('owner'),
+        repository: core.getInput('repository')
       };
       const repo = await getSanitizedRepo(inputs.repository)
 
