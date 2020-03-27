@@ -50,13 +50,13 @@ async function operateForIssue(owner, repo, issue, token) {
     }
 
     const jiraIssueKey = issueFirstComment.split(' ').pop();
-    const jiraIssueAssignee = getJiraIssueAssignee(jiraIssueKey);
+    const jiraIssueAssignee = await getJiraIssueAssignee(jiraIssueKey);
     console.log(`Jira assignee: ${jiraIssueAssignee}`);
 
     if (jiraIssueAssignee != '' && assigneeMapping[jiraIssueAssignee] != null) {
         const githubAssignee = assigneeMapping[jiraIssueAssignee];
         console.log(githubAssignee);
-       await new AssignIssueAction(owner, repo, issue, githubAssignee, token).execute();
+        await new AssignIssueAction(owner, repo, issue, githubAssignee, token).execute();
     }
 }
 
