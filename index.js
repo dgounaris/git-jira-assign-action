@@ -57,17 +57,17 @@ async function operateForIssue(owner, repo, issue, existingAssignees, token) {
 
     if (jiraIssueAssignee != '' && assigneeMapping[jiraIssueAssignee] != null) {
         const githubAssignee = assigneeMapping[jiraIssueAssignee];
-        console.log(githubAssignee);
-        await new UnassignIssueAction(
+        console.log(`Assignee for issue ${issue} is ${githubAssignee}`);
+        /*await new UnassignIssueAction(
             owner, 
             repo, 
             issue, 
             existingAssignees.filter(assignee => assignee != githubAssignee), 
             token
-        ).execute();
+        ).execute();*/
         await new AssignIssueAction(owner, repo, issue, githubAssignee, token).execute();
     } else {
-        await new UnassignIssueAction(owner, repo, issue, existingAssignees, token).execute();
+        //await new UnassignIssueAction(owner, repo, issue, existingAssignees, token).execute();
     }
 }
 
