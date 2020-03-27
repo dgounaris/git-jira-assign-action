@@ -51,6 +51,7 @@ async function operateForIssue(owner, repo, issue, token) {
 
     const jiraIssueKey = issueFirstComment.split(' ').pop();
     const jiraIssueAssignee = getJiraIssueAssignee(jiraIssueKey);
+    console.log(`Jira assignee: ${jiraIssueAssignee}`);
 
     if (jiraIssueAssignee != '' && assigneeMapping[jiraIssueAssignee] != null) {
         const githubAssignee = assigneeMapping[jiraIssueAssignee];
@@ -64,9 +65,9 @@ async function getJiraIssueAssignee(jiraIssue) {
         config,
         jiraIssue
     }).execute()
-    //console.log('Jira issue retrieved:\n');
-    //console.log(issue);
-    //console.log('\n');
+    console.log(`Jira issue ${jiraIssue} retrieved:\n`);
+    console.log(issue);
+    console.log('\n');
     if (issue.fields.assignee == null || issue.fields.assignee.accountId == null) {
         return '';
     }
