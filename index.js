@@ -77,9 +77,9 @@ async function getJiraIssueAssignee(jiraBaseUrl, jiraIssueKey, jiraToken) {
         jiraIssueKey,
         jiraToken
     ).execute()
-    console.log(`Jira issue ${jiraIssue} retrieved:\n`);
-    console.log(issue);
-    console.log('\n');
+    //console.log(`Jira issue ${jiraIssue} retrieved:\n`);
+    //console.log(issue);
+    //console.log('\n');
     if (issue.fields.assignee == null || issue.fields.assignee.accountId == null) {
         return '';
     }
