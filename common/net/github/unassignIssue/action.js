@@ -15,7 +15,7 @@ class UnassignIssueAction {
             }
 
         const data = {
-            'assignees': ['dgounaris']
+            'assignees': this.assignees
         }
 
         const response = await axios.delete(`https://api.github.com/repos/${this.owner}/${this.repo}/issues/${this.issue}/assignees`, {headers, data});
