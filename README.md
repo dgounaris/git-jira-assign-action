@@ -4,8 +4,6 @@ This is a github action step implementation to synchronize assigners in jira and
 
 ## Requirements
 
-This action step requires atlassian/gajira-login to be run before it.
-
 This action step requires assigneeMapping to contain all the mappings between jira and github assignee accounts.
 
 This action step requires the first issue comment to be a linking one between github and jira issues, 
@@ -13,7 +11,10 @@ in the format of "Automatically created Jira issue: XXX-YY"
 
 ## Input
 
-The plugin takes 3 arguments as input:
+The plugin takes the following arguments as input:
+- jiraBaseUrl (the base url for the jira project)
+- jiraEmail (the email of the jira account to use, which needs to have read access to the project)
+- jiraToken (an access token of the jira account to use)
 - token (a github token with write access to the github repo of interest)
 - owner (the owner of the repository)
 - repository (the name of the repository)
